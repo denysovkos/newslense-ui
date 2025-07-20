@@ -1,32 +1,13 @@
-# Stage 1: Build
-FROM node:24 AS builder
-WORKDIR /app
+FROM node:23-alpine
 
-# Copy only package files first for better caching
+WORKDIR /usr/src/app
+
 COPY package*.json ./
 
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the project files
 COPY . .
 
-# Build with Vite (uses .env.production automatically)
-RUN npm run build
+EXPOSE 5713
 
-# Stage 2: Serve with nginx
-FROM nginx:stable-alpine
-WORKDIR /usr/share/nginx/html
-
-# Remove default nginx static files
-RUN rm -rf ./*
-
-# Copy built app
-COPY --from=builder /app/dist ./
-
-# Optional: custom nginx config
-# Ensure nginx.conf exists in your project root
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["npm", "run", "dev", "--", "--port=5713", "--host=0.0.0.0"]
