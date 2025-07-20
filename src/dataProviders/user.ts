@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import {addFeed, deleteFeed, updateFeed} from './feeds.ts';
+import {Config} from "../config.ts";
 
 export interface IRssFeed {
     id: string;
@@ -30,7 +31,7 @@ export interface IUserStore {
 }
 
 const loadUser = async (email: string, token: string): Promise<IUserData> => {
-    const res = await fetch(`http://localhost:5150/User/${email}`, {
+    const res = await fetch(`${Config.baseUrl}/User/${email}`, {
         headers: {
             Authorization: `Bearer ${token}`,
             Accept: 'text/plain',
