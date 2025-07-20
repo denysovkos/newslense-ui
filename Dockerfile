@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:20 AS builder
+FROM node:24 AS builder
 WORKDIR /app
 
 # Copy only package files first for better caching
