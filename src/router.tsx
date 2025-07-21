@@ -42,6 +42,14 @@ export const router = createBrowserRouter([
                 ),
             },
             {
+                path: "verifications/:id",
+                element: (
+                    <ProtectedRoute>
+                        <Verifications />
+                    </ProtectedRoute>
+                ),
+            },
+            {
                 path: "profile",
                 element: (
                     <ProtectedRoute>

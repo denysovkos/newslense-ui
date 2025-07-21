@@ -2,11 +2,16 @@ import { create } from 'zustand';
 import {Config} from "../config.ts";
 
 export interface IFeedItem {
+    id: string;
     title: string;
     link: string;
     content: string;
     description: string;
     publishingDate?: string; // ISO 8601 string (DateTime? in C#)
+    isValidated: boolean;
+
+    rssFeedId?: string;
+    userId?: string;
 }
 
 export interface IFeedData {
